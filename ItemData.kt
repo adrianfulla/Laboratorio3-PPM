@@ -4,9 +4,9 @@
  * Programacion de Plataformas Moviles.
  * Sección: 20
  *
- * Laboratorio #2
+ * Laboratorio #3
  *
- * @version 1.0
+ * @version 2.0
  * @author Adrian Fulladolsa Palma | Carne 21592
  */
 
@@ -21,53 +21,33 @@ data class ItemData(
 
 fun main() {
      
-   	val result = processList(listOf(10, "Enero", null, true))
-    println(result)
-    println(result?.size)
-    
+   	val result = processList(listOf(12, "Sasd", true, "sa", "null"))
 }
 
 fun processList(inputList: List<Any?>?): List<ItemData>? {
-    var listas = listOf<ItemData>()   
-    var index = 0
-    if(inputList != null){
-        inputList?.forEach {
-            if(it !== null){
-                var tipo: String? = ""
-                var inform: String? = ""
-                when(it){
-                    is String ->{tipo = "Cadena"
-                        inform = "L" + it.length.toString()			
-                    } 
-                    is Int ->{ tipo = "Entero";
-                        if(it % 10 == 0){inform = "M10"}
-                        else if (it % 5 == 0){inform = "M5"}
-                        else if (it % 2 == 0){inform = "M2"}
-                        else{inform = null}
-
-                        }               
-                    is Boolean ->{ tipo = "Booleano"
-                        if(it){inform = "Verdadero"}
-                        else{inform = "Falso"}
-
-                        }
-                    else ->{ tipo = null
-                        inform = null}
+     if(inputList != null){
+            var listas = listOf<ItemData>()
+            inputList.forEach {
+                if(it != null){
+                   val newItem: ItemData =  when(it) {
+                       is String -> ItemData(inputList.indexOf(it), it, "Cadena", "L" + it.length.toString())
+                       is Int -> ItemData(inputList.indexOf(it), it, "Entero", if (it % 10 == 0) {
+                                   "M10"
+                               } else if (it % 5 == 0) {
+                                   "M5"
+                               } else if (it % 2 == 0) {
+                                   "M2"
+                               } else {
+                                   null
+                               })
+                       
+                       is Boolean -> ItemData(inputList.indexOf(it), it, "Booleano", if (it) "Verdadero" else "Falso")
+                       else -> ItemData(inputList.indexOf(it), it, null, null)
+                   }
+                    listas+=(newItem)
                 }
-                var newItem = ItemData(
-                      originalPos = index,
-                      originalValue = it,
-                      type = tipo,
-                      info = inform
-                      )
-                listas+=(newItem)           
             }
-            index+=1
+            return listas
         }
-        
-        return listas
-    }
-    else{return null}
-    
-  	
+        else{return null}
 }
