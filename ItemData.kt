@@ -6,7 +6,7 @@
  *
  * Laboratorio #3
  *
- * @version 1.0
+ * @version 2.0
  * @author Adrian Fulladolsa Palma | Carne 21592
  */
 
@@ -25,17 +25,13 @@ fun main() {
 }
 
 fun processList(inputList: List<Any?>?): List<ItemData>? {
-        if(inputList != null){
+     if(inputList != null){
             var listas = listOf<ItemData>()
             inputList.forEach {
                 if(it != null){
                    val newItem: ItemData =  when(it) {
-                       is String -> {
-                           ItemData(inputList.indexOf(it), it, "Cadena", "L" + it.length.toString())
-                       }
-                       is Int -> {
-                           ItemData(
-                               inputList.indexOf(it), it, "Entero", if (it % 10 == 0) {
+                       is String -> ItemData(inputList.indexOf(it), it, "Cadena", "L" + it.length.toString())
+                       is Int -> ItemData(inputList.indexOf(it), it, "Entero", if (it % 10 == 0) {
                                    "M10"
                                } else if (it % 5 == 0) {
                                    "M5"
@@ -43,16 +39,10 @@ fun processList(inputList: List<Any?>?): List<ItemData>? {
                                    "M2"
                                } else {
                                    null
-                               }
-                           )
-                       }
-                       is Boolean -> {
-                           ItemData(
-                               inputList.indexOf(it), it, "Booleano", if (it) "Verdadero" else "Falso"
-                           )
-                       }
-                       else -> { ItemData(inputList.indexOf(it), it, null, null)
-                       }
+                               })
+                       
+                       is Boolean -> ItemData(inputList.indexOf(it), it, "Booleano", if (it) "Verdadero" else "Falso")
+                       else -> ItemData(inputList.indexOf(it), it, null, null)
                    }
                     listas+=(newItem)
                 }
